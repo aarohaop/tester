@@ -186,7 +186,7 @@ def main():
     dispatcher.add_handler(CommandHandler('get_api', get_api))
     dispatcher.add_handler(CommandHandler('logout', api_Logout))
     dispatcher.add_handler(CommandHandler('features', feature))
-    dispatcher.add_handler(MessageHandler(Filters.all, handle_message))
+    dispatcher.add_handler(MessageHandler(Filter.all, handle_message))
 
     # Start polling for messages
     updater.start_polling()
