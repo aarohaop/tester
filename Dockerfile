@@ -21,4 +21,4 @@ RUN pip install --upgrade pip \
 COPY . /app/
 
 # Run the bot script
-CMD ["python", "your_telegram_bot_script.py"]
+CMD ["python", "main.py"]
