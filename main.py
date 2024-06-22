@@ -175,7 +175,7 @@ def main():
     # Set up the bot and its message handler
     bot_token = "7233518881:AAHQ_NVCds2bH21deSIJPQRnGFQT7CGlHqg"
     bot = telegram.Bot(bot_token)
-    updater = telegram.ext.Updater(bot_token, use_context=True)
+    updater = telegram.ext.Updater(bot_token)
     dispatcher = updater.dispatcher
 
     # Add handlers for commands and messages
