@@ -7,7 +7,7 @@ from pymongo import MongoClient
 import requests
 
 # MongoDB connection URI
-uri = "mongodb+srv://aaroha:aaroha@cluster0.xfupmjy.mongodb.net/?retryWrites=true&w=majority"
+uri = "mongodb+srv://aaroha:aaroha@cluster0.a9wygc9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 
 # Create a new client and connect to the server
 client = MongoClient(uri)
@@ -173,7 +173,7 @@ def api_Logout(update, context):
 
 def main():
     # Set up the bot and its message handler
-    bot_token = "6710510477:AAE3YFDMHWT3d6prygYFzlc285OmpQPpZB0"
+    bot_token = "7233518881:AAHQ_NVCds2bH21deSIJPQRnGFQT7CGlHqg"
     bot = telegram.Bot(bot_token)
     updater = telegram.ext.Updater(bot_token, use_context=True)
     dispatcher = updater.dispatcher
