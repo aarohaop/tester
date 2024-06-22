@@ -6,7 +6,6 @@ import string
 import random
 from pymongo import MongoClient
 import requests
-from telegram.ext import CallbackContext
 
 # MongoDB connection URI
 uri = "mongodb+srv://aaroha:aaroha@cluster0.xfupmjy.mongodb.net/?retryWrites=true&w=majority"
