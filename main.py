@@ -1,13 +1,15 @@
-import telegram.ext
+import telegram
+from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 from telegram import InlineKeyboardButton, InlineKeyboardMarkup
 import re
 import string
 import random
 from pymongo import MongoClient
 import requests
+from telegram.ext import CallbackContext
 
 # MongoDB connection URI
-uri = "mongodb+srv://aaroha:aaroha@cluster0.a9wygc9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+uri = "mongodb+srv://aaroha:aaroha@cluster0.xfupmjy.mongodb.net/?retryWrites=true&w=majority"
 
 # Create a new client and connect to the server
 client = MongoClient(uri)
@@ -16,7 +18,7 @@ collection = db['TeleAuth']
 
 # Function to generate random end for long url
 def end_gen(length):
-    letters = string.ascii_lowercase+string.digits+string.digits
+    letters = string.ascii_lowercase + string.digits + string.digits
     result_str = ''.join(random.choice(letters) for i in range(length))
     return result_str
 
@@ -64,8 +66,8 @@ def link_gen(uname, long_link):
 # Telegram bot handlers
 def start(update, context):
     keyboard = [
-                [InlineKeyboardButton("Sign Up", url="https://ez4short.xyz/auth/signup")],
-            ]
+        [InlineKeyboardButton("Sign Up", url="https://ez4short.xyz/auth/signup")],
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     message_reply_text = '''😋This bot will help you to Short Links from your EZ4short.xyz Account.
 
@@ -73,7 +75,7 @@ If you don't have an active EZ4short.xyz Account then Please register your accou
  
 2️⃣How to Short Links? 
 👉 After Logging in , Send any link which you want to Short. 
-👉 You will get your Shortned Link immediately.
+👉 You will get your Shortened Link immediately.
 
 3️⃣How to Short Bulk links at a time? 
 👉Send All the links which you want to short in below format 👇
@@ -104,8 +106,8 @@ def api_Login(update, context):
 
 def help(update, context):
     keyboard = [
-                [InlineKeyboardButton("Get Help", url="https://EZ4short.xyz/member/forms/support")],
-            ]
+        [InlineKeyboardButton("Get Help", url="https://EZ4short.xyz/member/forms/support")],
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     message_reply_text = 'Click on button to get help'
     update.message.reply_text(message_reply_text, reply_markup=reply_markup)
@@ -153,8 +155,8 @@ def handle_message(update, context):
 
 def get_api(update, context):
     keyboard = [
-                [InlineKeyboardButton("Get Token", url="EZ4short.xyz/member/tools/api")],
-            ]
+        [InlineKeyboardButton("Get Token", url="EZ4short.xyz/member/tools/api")],
+    ]
     reply_markup = InlineKeyboardMarkup(keyboard)
     message_reply_text = """• First Visit EZ4short.xyz/member/tools/api
 • Copy the API TOKEN and come back to Bot.
@@ -175,17 +177,17 @@ def main():
     # Set up the bot and its message handler
     bot_token = "7233518881:AAHQ_NVCds2bH21deSIJPQRnGFQT7CGlHqg"
     bot = telegram.Bot(bot_token)
-    updater = telegram.ext.Updater(bot_token)
+    updater = Updater(bot_token, use_context=True)
     dispatcher = updater.dispatcher
 
     # Add handlers for commands and messages
-    dispatcher.add_handler(telegram.ext.CommandHandler('start', start))
-    dispatcher.add_handler(telegram.ext.CommandHandler('help', help))
-    dispatcher.add_handler(telegram.ext.CommandHandler('login', api_Login))
-    dispatcher.add_handler(telegram.ext.CommandHandler('get_api', get_api))
-    dispatcher.add_handler(telegram.ext.CommandHandler('logout', api_Logout))
-    dispatcher.add_handler(telegram.ext.CommandHandler('features', feature))
-    dispatcher.add_handler(telegram.ext.MessageHandler(telegram.ext.Filters.all, handle_message))
+    dispatcher.add_handler(CommandHandler('start', start))
+    dispatcher.add_handler(CommandHandler('help', help))
+    dispatcher.add_handler(CommandHandler('login', api_Login))
+    dispatcher.add_handler(CommandHandler('get_api', get_api))
+    dispatcher.add_handler(CommandHandler('logout', api_Logout))
+    dispatcher.add_handler(CommandHandler('features', feature))
+    dispatcher.add_handler(MessageHandler(Filters.all, handle_message))
 
     # Start polling for messages
     updater.start_polling()
